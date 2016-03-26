@@ -1,0 +1,24 @@
+<div flex-xs flex-gt-xs="25" layout="column" ng-repeat="color in colors track by $index">
+  	<md-card style="padding-bottom: 0">
+      	<div style="background: {{color['l500']}}">
+      		<div style="min-height: 90px" ></div>
+	        <md-card-title>
+		        <md-card-title-text style="color: {{color.isLight ? '#000' : '#fff'}}">
+		            <span class="md-title">{{color.name}}</span>
+            		<span class="md-subhead">{{color['l500']}}</span>
+		        </md-card-title-text>
+	        </md-card-title>
+      	</div>
+      	<!-- <md-divider></md-divider> -->
+        <md-card-content style="padding: 0;">
+        	<md-list style="padding: 0;max-height: 230px;overflow: auto">
+				<md-list-item ng-repeat="level in color.levels track by $index" style="background: {{level.code}};color: {{level.isLight ? '#000' : '#fff'}}">
+					<div class="md-list-item-text">
+					  <h3>{{level.level}}</h3>
+					</div>
+					<md-button class="md-secondary">{{level.code}}</md-button>
+				</md-list-item>
+		    </md-list>
+        </md-card-content>
+  	</md-card>
+</div>

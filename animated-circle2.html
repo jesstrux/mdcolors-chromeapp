@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>animated circle</title>
+</head>
+<body>
+	<canvas id="cas"></canvas>
+	<script>
+	    //gloabl definitions
+
+	    var requestAnimationFrame = window.requestAnimationFrame || window.mozRequestAnimationFrame || window.webkitRequestAnimationFrame || window.msRequestAnimationFrame;
+	    var canvas = document.getElementById('cas');
+	    var context = canvas.getContext('2d');
+
+	    canvas.width = window.innerWidth;
+	    canvas.height = window.innerHeight;
+
+	    //core plugin features & call
+
+
+	    var circlePos = {
+            x: canvas.width / 2,
+            y: canvas.height / 2
+        }
+
+	    var circleDefaults = {};
+
+		// number of hours
+		var hours = 1;
+		var segmentWidth = 360 / hours;
+		var pieAngle = 2 * Math.PI / hours;
+		var segmentDepth = 250;
+
+		drawSegments(segmentDepth);
+		var count;
+
+		function drawSegments(radius) {
+		    for (var i = 0; i < hours; i++) {
+		    	circleDefaults = {
+		    		radius: 120,
+			        counterClockwise: false,
+			        startAngle: i*pieAngle,
+			        endAngle: (i+1)*pieAngle,
+			        currentPercent: 0,
+			        endPercent: 101
+		    	}
+	        	count = i;
+	        	AnimateCircle();
+		        // context.beginPath();
+		        // context.moveTo(x, y);
+		        // context.arc(x, y, radius, i*pieAngle, (i+1)*pieAngle, false);
+		        // '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+		        // context.fillStyle = levels[i].code;
+		        // context.fill();
+		    }
+		}
+
+		function AnimateCircle(current) {
+            context.beginPath();
+            context.moveTo(circlePos.x, circlePos.y);
+            context.arc(circlePos.x, circlePos.y, circleDefaults.radius, -(circleDefaults.startAngle), ((circleDefaults.endAngle) * current) - circleDefaults.startAngle, circleDefaults.counterClockwise);
+            context.lineWidth = segmentDepth;
+	        var hueValue = count * 15;
+	        context.fillStyle = '#'+(Math.random()*0xFFFFFF<<0).toString(16);;
+	        // 'hsl(' + hueValue + ',70%, 60%)';
+            context.fill();
+
+            circleDefaults.currentPercent+=1.5;
+            if (circleDefaults.currentPercent < circleDefaults.endPercent) {
+                requestAnimationFrame(function () {
+                    AnimateCircle(circleDefaults.currentPercent / 100);
+                });
+            }
+        }
+	</script>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Animated Color Wheel</title>
+</head>
+<body onload="drawColorWheel()">
+	<canvas id="colorWheel"></canvas>
+	<script>
+		var requestAnimationFrame = window.requestAnimationFrame || 
+                            window.mozRequestAnimationFrame || 
+                            window.webkitRequestAnimationFrame || 
+                            window.msRequestAnimationFrame;
+
+		function drawColorWheel(levels, currentLevel){
+			var canvas = document.getElementById('colorWheel');
+			var context = canvas.getContext('2d');
+			canvas.width = canvas.height = "575"
+
+			context.clearRect(0, 0, canvas.width, canvas.height);
+
+
+			// centre or center for US :) the drawing
+			var x = canvas.width / 2;
+			var y = canvas.height / 2;
+
+			// number of days
+			var days = 1;
+
+			// number of hours
+			var hours = 24;
+			var segmentWidth = 360 / hours;
+			var pieAngle = 2 * Math.PI / hours;
+			var segmentDepth = 250;
+
+			drawSegments(segmentDepth);
+
+			function drawSegments(radius) {
+			    for (var i = 0; i < 2; i++) {
+			        context.beginPath();
+			        context.moveTo(x, y);
+			        context.arc(x, y, radius, i*pieAngle, (i+1)*pieAngle, false);
+			        context.lineWidth = segmentDepth;
+			        var hueValue = i * 15;
+			        context.fillStyle = 'hsl(' + hueValue + ',70%, 60%)';
+			        // '#'+(Math.random()*0xFFFFFF<<0).toString(16);
+			        // context.fillStyle = levels[i].code;
+			        context.fill();
+			    }
+			}
+			requestAnimationFrame(drawColorWheel);
+		}
+	</script>
+</body>
+</html>

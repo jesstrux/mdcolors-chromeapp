@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+	<!-- <link rel="stylesheet" href="http://fonts.googleapis.com/css?family=Open+Sans" type="text/css"> -->
+	<link href="css/common.css" rel="stylesheet" type="text/css">
+	<title>&lt;track&gt; example</title>
+	<style>
+		body {
+		  background: #111;
+		  color: white;
+		  font-family: "Open Sans";
+		}
+		video {
+		  -webkit-box-reflect: below 5px -webkit-linear-gradient(top, transparent, transparent 80%, rgba(255,255,255,0.2));
+		}
+		section {
+		  text-align: center;
+		  margin-top: 5em;
+		}
+		section > div {
+		  margin-top: 2em;
+		  text-align: center;
+		  -webkit-perspective: 800;
+		  -webkit-transform-style: preserve-3d;
+		}
+		section > div > div:last-child {
+		  position: relative;
+		  top: -36px;
+		}
+		section > div > div {
+		  /*opacity: 0;*/
+		  font-size: 25px;
+		  -webkit-transition: all 500ms ease-in-out;
+		  -webkit-transform-origin: 50% 100%;
+		  -webkit-transform: rotateX(-90deg);
+		}
+		section > div > div.on {
+		  opacity: 1;
+		  -webkit-transform: rotateX(0);
+		}
+		details {
+		  color: black;
+		}
+	</style>
+</head>
+<body>
+	<section>
+		<div id="out"></div>
+		<video width="760" autoplay controls>
+			<source src="colony.mp4" type='video/mp4'>
+			<track label="English subtitles" kind="subtitles" srclang="en" src="colony.vtt" default>
+		</video>
+	  	<div><div>test1</div><div>asdf2</div></div>
+	</section>
+
+	<script src="js/jquery.min.js"></script>
+	<script>
+		var video = document.querySelector('video');
+		var span1 = document.querySelector('section > div :first-child');
+		var span2 = document.querySelector('section > div :last-of-type');
+		var track = video.textTracks[0];
+		track.mode = 'hidden';
+
+		var keys = {};
+
+		$(document).keydown(function (e) {
+			var key = e.which;
+		    keys[e.which] = true;
+		    
+		    // printKeys();
+
+		    if(key == 32)
+		    	togglePlay();
+		    else if(key == 39 && keys[16])
+		    	seekForward('short');
+		    else if(key == 39 && keys[17])
+		    	seekForward('long');
+		    else if(key == 37 && keys[16])
+		    	seekBackward('short');
+		    else if(key == 37 && keys[17])
+		    	seekBackward('long');
+		});
+
+		$(document).keyup(function (e) {
+		    delete keys[e.which];
+		    // printKeys();
+		});
+
+		function seekForward(burst){
+			if(burst == 'short'){
+				video.currentTime = video.currentTime + 40 < video.duration ? video.currentTime + 40 : video.currentTime;
+			}
+			else if(burst == 'long'){
+				video.currentTime = video.currentTime + 120 < video.duration ? video.currentTime + 120 : video.currentTime;
+			}
+		}
+
+		function seekBackward(burst){
+			if(burst == 'short'){
+				video.currentTime = video.currentTime - 40 > 0 ? video.currentTime - 40 : 0;
+			}
+			else if(burst == 'long'){
+				video.currentTime = video.currentTime - 120 > 0 ? video.currentTime - 120 : 0;
+			}
+		}
+
+		function togglePlay(){
+			if(video.paused)
+				video.play();
+			else
+				video.pause();
+		}
+
+		function printKeys() {
+		    var html = '';
+		    for (var i in keys) {
+		        if (!keys.hasOwnProperty(i)) continue;
+		        html += '<p>' + i + '</p>';
+		    }
+		    $('#out').html(html);
+		}
+
+		console.log(track);
+		var idx = 0;
+
+		track.oncuechange = function(e) {
+
+		  var cue = this.activeCues[0];
+		  if (cue) {
+		    if (idx == 0) {
+		      span2.className = '';
+		      span1.classList.remove('on');
+		      span1.innerHTML = '';
+		      span1.appendChild(cue.getCueAsHTML());
+		      span1.classList.add('on');
+		      console.log(cue);
+		    } else {
+		      span1.className = '';
+		      span2.classList.remove('on');
+		      span2.innerHTML = '';
+		      span2.appendChild(cue.getCueAsHTML());
+		      span2.classList.add('on');
+		      console.log(cue);
+		    }
+
+		    idx = ++idx % 2;
+		  }
+		};
+	</script>
+</body>
+</html>
