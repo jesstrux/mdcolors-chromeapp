@@ -21,7 +21,7 @@
 					<div hide-sm hide-xs hide-sm-md style="height: 35px"></div>
 					<div hide show-sm show-xs show-dm-md style="height: 10px"></div>
 					<md-list flex>
-						<md-list-item class="md-2-line" ng-class="{'active' : activeColorIndex === $index}" ng-repeat="color in colors track by $index" ng-click="viewColor($index)">
+						<md-list-item class="md-2-line" ng-class="{'active' : activeColorIndex === $index &amp;&amp; !isSmall &amp;&amp; !isXSmall}" ng-repeat="color in colors track by $index" ng-click="viewColor($index)">
 				          <span class="md-avatar" style="background: {{color.l500}}"></span>
 				          <div class="md-list-item-text" layout="column">
 				            <h3>{{ color.name }}</h3>
@@ -33,7 +33,7 @@
 					</md-list>
 				</md-content>
 			</div>
-			<div flex-gt-md="75" flex-gt-sm="70" layout="column" layout-fill hide-xs>
+			<div flex-gt-md="75" flex="60" flex-gt-sm="70" layout="column" layout-fill hide-xs>
 				<md-content flex layout-fill layout-padding layout="row" layout-align="center center" ng-controlle="colorWheelCtrl">
 					<div flex-xs="100" flex-gt-md="60" class="md-whiteframe-3dp" style="background: #fff;" layout="column" layout-align="center center" layout-padding>
 						<div layout="row" layout-padding layout-align="space-between" style="width: 100%">
@@ -41,7 +41,7 @@
 								<span>{{color.name}}<span> <br>
 								<span style="display: block; margin-top:-5px;font-size: 20px;color:#555; text-align: right;">{{colorLevels[activeLevelIndex].level}} : <span style="color:#999"> {{colorLevels[activeLevelIndex].code}}</span></span>
 							</div>
-							<div class="md-whiteframe-3dp" style="width: 50px;height:50px;background: {{colorLevels[activeLevelIndex].code}}; -webkit-transition: all 0.35s ease-in-out;transition: all 0.35s ease-in-out">
+							<div class="md-whiteframe-1dp" style="width: 50px;height:50px;background: {{colorLevels[activeLevelIndex].code}}; -webkit-transition: all 0.35s ease-in-out;transition: all 0.35s ease-in-out">
 							</div>
 						</div>
 						<canvas id='colorWheel' ng-click="logColor($event)"></canvas>

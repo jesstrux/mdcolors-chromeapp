@@ -6,12 +6,14 @@ app.config(function($mdThemingProvider) {
     .accentPalette('pink');
 });
 
-app.controller('AppCtrl', function($scope, Colors){
+app.controller('AppCtrl', function($scope, $mdMedia, Colors){
 	$scope.activeColorIndex;
 	$scope.color;
 	$scope.colorLevels;
 	$scope.curLevel;
 	$scope.activeLevelIndex;
+	$scope.isSmall = $mdMedia['sm'];
+	$scope.isXSmall = $mdMedia['xs'];
 
 	Colors.all().then(function(colors){
 		$scope.colors = colors;
@@ -24,7 +26,7 @@ app.controller('AppCtrl', function($scope, Colors){
 		$scope.colorLevels = $scope.color.levels;
 		var startLevel = 5;
 		
-		if(index >= 12) //if color is either black or white
+		if(index >= 19) //if color is either black or white
 			var startLevel = 0;
 
 		$scope.curLevel = $scope.colorLevels[startLevel];
