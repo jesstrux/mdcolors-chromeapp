@@ -1,17 +1,15 @@
-<md-content>
-	<md-grid-list
-	        md-cols="1" md-cols-sm="2" md-cols-md="3" md-cols-gt-md="3"
-	        md-row-height-gt-md="1:1" md-row-height="4:3"
-	        md-gutter="1em">
-	    <md-grid-tile ng-repeat="color in colors track by $index | limitTo: 3"
-	                  md-rowspan="1"
-	                  md-colspan="1"
-	                  md-colspan-sm="1"
-	                  style="background: {{color['l500']}}" class="{{activeColorIndex === $index ? 'md-whiteframe-9dp' : ''}}" ng-click="viewColor($index)">
-	      	<md-icon md-svg-icon="{{tile.icon}}"></md-icon>
-	      	<md-grid-tile-footer>
-	      		<h3 style="color: {{color.isLight ? '#000' : '#fff'}}">{{color.name}}</h3>
-	      	</md-grid-tile-footer>
-	    </md-grid-tile>
-	</md-grid-list>
-</md-content>
+<md-grid-list
+        md-cols="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
+        md-row-height-gt-md="1:1" md-row-height="4:3"
+        md-gutter="1em" hide-xs hide-sm style="margin-top: 30px">
+    <md-grid-tile ng-repeat="color in colors track by $index"
+                  md-rowspan="1"
+                  md-colspan="1"
+                  md-colspan-sm="1"
+                  style="background: {{color['l500']}}" class="{{activeColorIndex === $index ? 'md-whiteframe-9dp' : ''}}" ng-click="viewColor($index)">
+      	<md-icon md-svg-icon="{{tile.icon}}"></md-icon>
+      	<md-grid-tile-footer>
+      		<h3 style="color: {{color.isLight ? '#000' : '#fff'}}">{{color.name}} <br/>{{ color.l500}}</h3>
+      	</md-grid-tile-footer>
+    </md-grid-tile>
+</md-grid-list>

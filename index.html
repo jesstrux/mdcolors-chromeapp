@@ -7,13 +7,6 @@
 	<link rel="stylesheet" href="css/angular-material.min.css">
 	<link rel="stylesheet" href="css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" href="css/main.css">
-
-	<script src="libs/angular.min.js"></script>
-	<script src="libs/angular-material.min.js"></script>
-	<script src="libs/angular-animate.min.js"></script>
-	<script src="libs/angular-aria.min.js"></script>
-	<script src="libs/angular-messages.min.js"></script>
-	<script src="libs/angular-route.min.js"></script>
 </head>
 <body ng-app="mdcolors" layou>
 	<div ng-controller="AppCtrl" layout="column" ng-cloak layout-fill>
@@ -22,46 +15,31 @@
 			  	<h2 class="md-flex">Md Colors</h2>
 			</div>
 		</md-toolbar>
-		<md-content>
-			<md-list hide show-xs style="margin-top: 60px">
-				<md-list-item class="md-2-line" ng-repeat="color in colors track by $index">
-		          <span class="md-avatar" style="background: {{color.l500}}"></span>
-		          <div class="md-list-item-text" layout="column">
-		            <h3>{{ color.name }}</h3>
-		            <h4>{{ color.l500 }}</h4>
-		            <!-- <p>{{ item.notes }}</p> -->
-		          </div>
-		          <md-divider md-inset ng-if="!$last"></md-divider>
-		        </md-list-item>
-			</md-list>
-		</md-content>
-		<div layout layout-xs="column" layout-fill style="background: #eee;padding-top: 60px" hide-xs>
-			<div flex layout="column" layout-padding layout-fill>
-				<md-content>
-					<md-grid-list
-					        md-cols="1" md-cols-sm="1" md-cols-md="2" md-cols-gt-md="3"
-					        md-row-height-gt-md="1:1" md-row-height="4:3"
-					        md-gutter="1em">
-					    <md-grid-tile ng-repeat="color in colors track by $index"
-					                  md-rowspan="1"
-					                  md-colspan="1"
-					                  md-colspan-sm="1"
-					                  style="background: {{color['l500']}}" class="{{activeColorIndex === $index ? 'md-whiteframe-9dp' : ''}}" ng-click="viewColor($index)">
-					      	<md-icon md-svg-icon="{{tile.icon}}"></md-icon>
-					      	<md-grid-tile-footer>
-					      		<h3 style="color: {{color.isLight ? '#000' : '#fff'}}">{{color.name}} <br/>{{ color.l500}}</h3>
-					      	</md-grid-tile-footer>
-					    </md-grid-tile>
-					</md-grid-list>
+		<div layout layout-xs="column" layout-fill style="background: #f9f9f9;padding-top: 30px;">
+			<div class="md-whiteframe-3dp" flex layout="column" style="background: #fff;">
+				<md-content ng-nicescroll nice-option="{cursorcolor: '#aaa'}">
+					<div hide-sm hide-xs hide-sm-md style="height: 35px"></div>
+					<div hide show-sm show-xs show-dm-md style="height: 10px"></div>
+					<md-list flex>
+						<md-list-item class="md-2-line" ng-class="{'active' : activeColorIndex === $index}" ng-repeat="color in colors track by $index" ng-click="viewColor($index)">
+				          <span class="md-avatar" style="background: {{color.l500}}"></span>
+				          <div class="md-list-item-text" layout="column">
+				            <h3>{{ color.name }}</h3>
+				            <h4>{{ color.l500 }}</h4>
+				            <!-- <p>{{ item.notes }}</p> -->
+				          </div>
+				          <md-divider ng-if="!$last"></md-divider>
+				        </md-list-item>
+					</md-list>
 				</md-content>
 			</div>
-			<div flex-md="50" flex-gt-xs="60" flex-gt-md="60" layout="column" layout-fill hide-xs>
-				<md-content flex layout-fill layout-padding layout="column" layout-align="center center" ng-controlle="colorWheelCtrl">
-					<div flex-xs="100"  class="md-whiteframe-3dp" style="width: 80%;" layout="column" layout-align="center center" layout-padding>
+			<div flex-gt-md="75" flex-gt-sm="70" layout="column" layout-fill hide-xs>
+				<md-content flex layout-fill layout-padding layout="row" layout-align="center center" ng-controlle="colorWheelCtrl">
+					<div flex-xs="100" flex-gt-md="60" class="md-whiteframe-3dp" style="background: #fff;" layout="column" layout-align="center center" layout-padding>
 						<div layout="row" layout-padding layout-align="space-between" style="width: 100%">
-							<div layout="column" style="font-size: 35px;border-right:1px solid #999;padding-right: 20px;">
-								{{color.name}}
-								<span style="font-size: 20px;color:#555; text-align: right;">{{colorLevels[activeLevelIndex].level}} : <span style="color:#999"> {{colorLevels[activeLevelIndex].code}}</span></span>
+							<div layout="column" style="display:block;font-size: 35px;border-right:1px solid #999;padding-right: 20px;max-width: calc(100% - 80px);overflow:hidden;white-space: nowrap;text-overflow: ellipsis;">
+								<span>{{color.name}}<span> <br>
+								<span style="display: block; margin-top:-5px;font-size: 20px;color:#555; text-align: right;">{{colorLevels[activeLevelIndex].level}} : <span style="color:#999"> {{colorLevels[activeLevelIndex].code}}</span></span>
 							</div>
 							<div class="md-whiteframe-3dp" style="width: 50px;height:50px;background: {{colorLevels[activeLevelIndex].code}}; -webkit-transition: all 0.35s ease-in-out;transition: all 0.35s ease-in-out">
 							</div>
@@ -72,6 +50,16 @@
 			</div>
 		</div>
 	</div>
+
+	<script src="libs/angular.min.js"></script>
+	<script src="libs/angular-material.min.js"></script>
+	<script src="libs/angular-animate.min.js"></script>
+	<script src="libs/angular-aria.min.js"></script>
+	<script src="libs/angular-messages.min.js"></script>
+	<script src="libs/angular-route.min.js"></script>
+	<script src="libs/jquery.min.js"></script>
+	<script src="libs/jquerynicescroll.js"></script>
+	<script src="libs/angular-nicescroll.js"></script>
 
 	<script src="libs/tinycolor.min.js"></script>
 	<script src="js/app.js"></script>

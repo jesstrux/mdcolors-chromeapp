@@ -3,12 +3,12 @@
 	font-size: 20px;
 }
 
-.color-boxes > md-list-item, .color-boxes > md-list-item ._md-list-item-inner {
-    min-height: 35px !important;
-    /*height: 35px !important;
-    font-size: 12px;*/
-    opacity: 1 !important;
-}
 #colorWheel:focus {
     outline: none;
 }
+
+md-list-item.active{
+	background-color: rgba(158,158,158,0.15);
+}
+
+md-list-item.active md-divider{display: none;}

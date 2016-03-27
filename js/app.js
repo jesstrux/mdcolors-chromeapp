@@ -1,4 +1,4 @@
-var app = angular.module("mdcolors", ['ngMaterial', 'mdcolors.services']);
+var app = angular.module("mdcolors", ['ngMaterial', 'angular-nicescroll', 'mdcolors.services']);
 
 app.config(function($mdThemingProvider) {
   $mdThemingProvider.theme('default')
@@ -22,8 +22,13 @@ app.controller('AppCtrl', function($scope, Colors){
 		$scope.activeColorIndex = index;
 		$scope.color = $scope.colors[index];
 		$scope.colorLevels = $scope.color.levels;
-		$scope.curLevel = $scope.colorLevels[5];
-		$scope.viewLevel(5);
+		var startLevel = 5;
+		
+		if(index >= 12) //if color is either black or white
+			var startLevel = 0;
+
+		$scope.curLevel = $scope.colorLevels[startLevel];
+		$scope.viewLevel(startLevel);
 	}
 
 	$scope.viewLevel = function(index){
